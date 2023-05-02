@@ -1,0 +1,103 @@
+
+-- GROUP BY Syntax:==>
+
+--NOTE:==> GROUP BY takes the column names
+
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+ORDER BY column_name(s);   -- Optional
+
+-- OR ---
+
+
+SELECT category_col, AGG(data_col)
+from table
+GROUP BY category_col
+
+
+-- OR ---
+
+
+SELECT company, SUM(sales)
+from finance_table
+GROUP BY company
+ORDER BY SUM(sales)
+
+
+-- OR ---
+
+SELECT company, SUM(sales)
+from finance_table
+GROUP BY company
+ORDER BY SUM(sales)
+LIMIT 5
+
+
+-- GROUP By clause must appear after FROM or WHERE statement.
+
+----------------------------------------------------------------
+
+--Example 01:===>
+
+select company, division, SUM(sales)
+from finance_table
+GROUP BY company, division   -- GROUP BY takes the column names
+
+
+--NOTE:==> GROUP BY takes the column names
+
+-------------------------------------------------------------------
+
+--Example 2:===>
+
+-- Q. Which Customer_id is spending the most amount of money?
+
+select customer_id, SUM(amount)
+from payment
+GROUP BY customer_id
+ORDER BY SUM(amount) DESC
+
+
+---------------------------------------------
+
+-- Q. How many Transaction are having? - (Means, which customer_id completed how many transactions?)
+
+select customer_id, COUNT(amount)
+from payment
+GROUP BY customer_id
+ORDER BY COUNT(amount) DESC
+
+
+-------------------------------------------------
+
+-- Q. GROUP BY Multiple Column:==>
+
+-- Means, How much each customer spend on each staff member?
+
+
+select customer_id, staff_id, SUM(amount)
+from payment
+GROUP BY customer_id, staff_id
+ORDER BY customer_id
+
+----------------------------------------------------------
+
+-- Using Date function - How much amount being processed in each day?
+
+
+select DATE(payment_date), SUM(amount)
+from payment
+GROUP BY DATE(payment_date)
+ORDER BY SUM(amount) DESC
+
+
+
+
+
+
+
+
+
+
